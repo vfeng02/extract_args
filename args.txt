@@ -1,0 +1,11 @@
+usage: example.py [-h] workdir epoch
+
+Example parser
+
+positional arguments:
+  workdir     Directory with cryoDRGN results
+  epoch       Epoch number N to analyze (0-based indexing, corresponding to
+              z.N.pkl, weights.N.pkl)
+
+optional arguments:
+  -h, --help  show this help message and exit
