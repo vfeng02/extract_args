@@ -1,5 +1,7 @@
-from example.example import add_args as example_add_args
+import example
 import argparse
+import yaml
+import json
 
 class Arg:
   def __init__(self, option_strings, name, num, default, type):
@@ -11,16 +13,19 @@ class Arg:
 
 def main():
     parser = argparse.ArgumentParser(description='Example parser')
-    example_add_args(parser)
-    args = {"required": [], "optional": []}
+    example.add_args(parser)
+    args = {"required": {}, "optional": {}}
     for arg in parser._actions:
         details = {}
-        details["name"] = arg.dest
+
+        if arg.dest == "help":
+            continue
+
         if arg.nargs is not None:
             details["nargs"] = arg.nargs
         if arg.type is not None:
-            details["type"] = arg.type
-        if arg.option_strings is not None:
+            details["type"] = arg.type.__name__
+        if len(arg.option_strings) > 0:
             details["flags"] = arg.option_strings
         if arg.help is not None:
             details["help"] = arg.help
@@ -28,9 +33,15 @@ def main():
             details["choices"] = arg.choices
         
         if arg.required: 
-            args["required"].append(details)
+            args["required"][arg.dest] = details
         else:
-            args["optional"].append(details)
+            args["optional"][arg.dest] = details
+    
+    print(args)
+    # with open('args.yml', 'w') as outfile:
+    #     yaml.dump(args, outfile)
+    # with open('args.json', 'w', encoding='utf-8') as f:
+    #     json.dump(args, f, ensure_ascii=False, indent=4)
 
         #handle argument group
 
