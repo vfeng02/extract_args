@@ -40,5 +40,3 @@ def main(parser):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Example parser')
     main(parser)
-
-

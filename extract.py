@@ -1,19 +1,13 @@
-import example
+import sys
+import os
+import importlib
 import argparse
 import yaml
 import json
 
-class Arg:
-  def __init__(self, option_strings, name, num, default, type):
-    self.option_strings = option_strings
-    self.name = name
-    self.num = num
-    self.default = default
-    self.type = type
-
-def main():
-    parser = argparse.ArgumentParser(description='Example parser')
-    example.add_args(parser)
+def save_json(module):
+    parser = argparse.ArgumentParser()
+    module.add_args(parser)
     args = {}
 
     for arg_group in parser._action_groups:
@@ -38,18 +32,35 @@ def main():
                 details["nargs"] = arg.nargs
             if arg.type is not None:
                 details["type"] = arg.type.__name__
-   
+            
+            if len(arg.option_strings) > 0:
+                details["flags"] = arg.option_strings
+            
+            # if arg.required:
+            #     args["positional arguments"][arg.dest] = details
+            # else:
+            #     args[arg_group.title][arg.dest] = details
             args[arg_group.title][arg.dest] = details
     
-    # print(args)
     # with open('args.yml', 'w') as outfile:
     #     yaml.dump(args, outfile)
-    with open('args.json', 'w', encoding='utf-8') as f:
+    with open('./output/'+module.__name__+'_args.json', 'w', encoding='utf-8') as f:
         json.dump(args, f, ensure_ascii=False, indent=4)
 
-        #handle argument group
+def main():
+    sys.path.append('/scratch/gpfs/vyfeng/cryodrgn')
+    sys.path.append('/scratch/gpfs/vyfeng/cryodrgn/cryodrgn/commands')
+
+    # Need to handle direct_traversal separately
+    modules = [f[:-3] for f in os.listdir('/scratch/gpfs/vyfeng/cryodrgn/cryodrgn/commands') if f != '__init__.py' and f != 'direct_traversal.py' and f[-3:] == '.py']
+
+    for command in modules:
+        globals()[command] = importlib.import_module(command)
+        save_json(globals()[command])
+    
+    # import direct_traversal_add_args as direct_traversal
+    # save_json(direct_traversal)
+    # # remember to rename output json file
 
 if __name__ == "__main__":
     main()
-
-# print(parser._actions[-1].option_strings)

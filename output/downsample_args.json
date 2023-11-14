@@ -1,0 +1,70 @@
+{
+    "positional arguments": {
+        "mrcs": {
+            "help": "Input particles or volume (.mrc, .mrcs, .star, .cs, or .txt)"
+        }
+    },
+    "options": {
+        "D": {
+            "help": "New box size in pixels, must be even",
+            "type": "int",
+            "flags": [
+                "-D"
+            ]
+        },
+        "o": {
+            "help": "Output projection stack (.mrcs)",
+            "metavar": "MRCS",
+            "type": "abspath",
+            "flags": [
+                "-o"
+            ]
+        },
+        "b": {
+            "default": 5000,
+            "help": "Batch size for processing images (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "-b"
+            ]
+        },
+        "is_vol": {
+            "const": true,
+            "default": false,
+            "help": "Flag if input .mrc is a volume",
+            "nargs": 0,
+            "flags": [
+                "--is-vol"
+            ]
+        },
+        "chunk": {
+            "help": "Chunksize (in # of images) to split particle stack when saving",
+            "type": "int",
+            "flags": [
+                "--chunk"
+            ]
+        },
+        "datadir": {
+            "help": "Optionally provide path to input .mrcs if loading from a .star or .cs file",
+            "flags": [
+                "--datadir"
+            ]
+        },
+        "max_threads": {
+            "default": 16,
+            "help": "Maximum number of CPU cores for parallelization (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--max-threads"
+            ]
+        },
+        "ind": {
+            "help": "Filter particle stack by these indices",
+            "metavar": "PKL",
+            "type": "abspath",
+            "flags": [
+                "--ind"
+            ]
+        }
+    }
+}

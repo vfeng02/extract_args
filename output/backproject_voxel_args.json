@@ -1,0 +1,138 @@
+{
+    "positional arguments": {
+        "particles": {
+            "help": "Input particles (.mrcs, .star, .cs, or .txt)",
+            "type": "abspath"
+        }
+    },
+    "options": {
+        "poses": {
+            "help": "Image poses (.pkl)",
+            "type": "abspath",
+            "flags": [
+                "--poses"
+            ]
+        },
+        "ctf": {
+            "help": "CTF parameters (.pkl) for phase flipping images",
+            "metavar": "pkl",
+            "type": "abspath",
+            "flags": [
+                "--ctf"
+            ]
+        },
+        "o": {
+            "help": "Output .mrc file",
+            "type": "abspath",
+            "flags": [
+                "-o"
+            ]
+        },
+        "ctf_alg": {
+            "choices": [
+                "flip",
+                "mul"
+            ],
+            "default": "mul",
+            "type": "str",
+            "flags": [
+                "--ctf-alg"
+            ]
+        },
+        "reg_weight": {
+            "default": 1.0,
+            "help": "Add this value times the mean weight to the weight map to regularize the volume, reducing noise.Alternatively, you can set --output-sumcount, and then use `cryodrgn_utils regularize_backproject` on the.sums and .counts files to try different regularization constants post hoc.",
+            "type": "float",
+            "flags": [
+                "--reg-weight"
+            ]
+        },
+        "output_sumcount": {
+            "const": true,
+            "default": false,
+            "help": "Output voxel sums and counts so that different regularization weights can be applied post hoc, with `cryodrgn_utils regularize_backproject`.",
+            "nargs": 0,
+            "flags": [
+                "--output-sumcount"
+            ]
+        }
+    },
+    "Dataset loading options": {
+        "invert_data": {
+            "const": false,
+            "default": true,
+            "help": "Do not invert data sign",
+            "nargs": 0,
+            "flags": [
+                "--uninvert-data"
+            ]
+        },
+        "datadir": {
+            "help": "Path prefix to particle stack if loading relative paths from a .star or .cs file",
+            "type": "abspath",
+            "flags": [
+                "--datadir"
+            ]
+        },
+        "lazy": {
+            "const": true,
+            "default": false,
+            "help": "Lazy loading if full dataset is too large to fit in memory",
+            "nargs": 0,
+            "flags": [
+                "--lazy"
+            ]
+        },
+        "ind": {
+            "help": "Filter particles by these indices",
+            "metavar": "PKL",
+            "type": "abspath",
+            "flags": [
+                "--ind"
+            ]
+        },
+        "first": {
+            "help": "Backproject the first N images (default: all images)",
+            "type": "int",
+            "flags": [
+                "--first"
+            ]
+        }
+    },
+    "Tilt series options": {
+        "tilt": {
+            "const": true,
+            "default": false,
+            "help": "Flag to treat data as a tilt series from cryo-ET",
+            "nargs": 0,
+            "flags": [
+                "--tilt"
+            ]
+        },
+        "ntilts": {
+            "default": 10,
+            "help": "Number of tilts per particle to backproject (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--ntilts"
+            ]
+        },
+        "dose_per_tilt": {
+            "help": "Expected dose per tilt (electrons/A^2 per tilt) (default: %(default)s)",
+            "type": "float",
+            "flags": [
+                "-d",
+                "--dose-per-tilt"
+            ]
+        },
+        "angle_per_tilt": {
+            "default": 3,
+            "help": "Tilt angle increment per tilt in degrees (default: %(default)s)",
+            "type": "float",
+            "flags": [
+                "-a",
+                "--angle-per-tilt"
+            ]
+        }
+    }
+}

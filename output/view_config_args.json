@@ -1,0 +1,9 @@
+{
+    "positional arguments": {
+        "workdir": {
+            "help": "Directory with cryoDRGN results",
+            "type": "abspath"
+        }
+    },
+    "options": {}
+}

@@ -1,0 +1,513 @@
+{
+    "positional arguments": {
+        "particles": {
+            "help": "Input particles (.mrcs, .star, .cs, or .txt)",
+            "type": "abspath"
+        }
+    },
+    "options": {
+        "outdir": {
+            "help": "Output directory to save model",
+            "type": "abspath",
+            "flags": [
+                "-o",
+                "--outdir"
+            ]
+        },
+        "zdim": {
+            "help": "Dimension of latent variable",
+            "type": "int",
+            "flags": [
+                "--zdim"
+            ]
+        },
+        "ctf": {
+            "help": "CTF parameters (.pkl)",
+            "metavar": "pkl",
+            "type": "abspath",
+            "flags": [
+                "--ctf"
+            ]
+        },
+        "load": {
+            "help": "Initialize training from a checkpoint",
+            "flags": [
+                "--load"
+            ]
+        },
+        "load_poses": {
+            "help": "Initialize training from a checkpoint",
+            "flags": [
+                "--load-poses"
+            ]
+        },
+        "checkpoint": {
+            "default": 1,
+            "help": "Checkpointing interval in N_EPOCHS (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--checkpoint"
+            ]
+        },
+        "log_interval": {
+            "default": 1000,
+            "help": "Logging interval in N_IMGS (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--log-interval"
+            ]
+        },
+        "verbose": {
+            "const": true,
+            "default": false,
+            "help": "Increase verbosity",
+            "nargs": 0,
+            "flags": [
+                "-v",
+                "--verbose"
+            ]
+        },
+        "seed": {
+            "default": 93828,
+            "help": "Random seed",
+            "type": "int",
+            "flags": [
+                "--seed"
+            ]
+        }
+    },
+    "Dataset loading": {
+        "ind": {
+            "help": "Filter particle stack by these indices",
+            "metavar": "PKL",
+            "type": "abspath",
+            "flags": [
+                "--ind"
+            ]
+        },
+        "invert_data": {
+            "const": false,
+            "default": true,
+            "help": "Do not invert data sign",
+            "nargs": 0,
+            "flags": [
+                "--uninvert-data"
+            ]
+        },
+        "window": {
+            "const": false,
+            "default": true,
+            "help": "Turn off real space windowing of dataset",
+            "nargs": 0,
+            "flags": [
+                "--no-window"
+            ]
+        },
+        "window_r": {
+            "default": 0.85,
+            "help": "Windowing radius (default: %(default)s)",
+            "type": "float",
+            "flags": [
+                "--window-r"
+            ]
+        },
+        "datadir": {
+            "help": "Path prefix to particle stack if loading relative paths from a .star or .cs file",
+            "type": "abspath",
+            "flags": [
+                "--datadir"
+            ]
+        },
+        "lazy": {
+            "const": true,
+            "default": false,
+            "help": "Lazy loading if full dataset is too large to fit in memory",
+            "nargs": 0,
+            "flags": [
+                "--lazy"
+            ]
+        },
+        "shuffler_size": {
+            "default": 0,
+            "help": "If non-zero, will use a data shuffler for faster lazy data loading.",
+            "type": "int",
+            "flags": [
+                "--shuffler-size"
+            ]
+        },
+        "max_threads": {
+            "default": 16,
+            "help": "Maximum number of CPU cores for data loading (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--max-threads"
+            ]
+        }
+    },
+    "Tilt series": {
+        "tilt": {
+            "help": "Particle stack file (.mrcs)",
+            "flags": [
+                "--tilt"
+            ]
+        },
+        "tilt_deg": {
+            "default": 45,
+            "help": "X-axis tilt offset in degrees (default: %(default)s)",
+            "type": "float",
+            "flags": [
+                "--tilt-deg"
+            ]
+        },
+        "enc_only": {
+            "const": true,
+            "default": false,
+            "help": "Use the tilt pair only in VAE and not in BNB search",
+            "nargs": 0,
+            "flags": [
+                "--enc-only"
+            ]
+        }
+    },
+    "Training parameters": {
+        "num_epochs": {
+            "default": 30,
+            "help": "Number of training epochs (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "-n",
+                "--num-epochs"
+            ]
+        },
+        "batch_size": {
+            "default": 8,
+            "help": "Minibatch size (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "-b",
+                "--batch-size"
+            ]
+        },
+        "wd": {
+            "default": 0,
+            "help": "Weight decay in Adam optimizer (default: %(default)s)",
+            "type": "float",
+            "flags": [
+                "--wd"
+            ]
+        },
+        "lr": {
+            "default": 0.0001,
+            "help": "Learning rate in Adam optimizer (default: %(default)s)",
+            "type": "float",
+            "flags": [
+                "--lr"
+            ]
+        },
+        "beta": {
+            "help": "Choice of beta schedule or a constant for KLD weight (default: 1/zdim)",
+            "flags": [
+                "--beta"
+            ]
+        },
+        "beta_control": {
+            "help": "KL-Controlled VAE gamma. Beta is KL target",
+            "type": "float",
+            "flags": [
+                "--beta-control"
+            ]
+        },
+        "equivariance": {
+            "help": "Strength of equivariance loss",
+            "type": "float",
+            "flags": [
+                "--equivariance"
+            ]
+        },
+        "eq_start_it": {
+            "default": 100000,
+            "help": "It at which equivariance turned on (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--eq-start-it"
+            ]
+        },
+        "eq_end_it": {
+            "default": 200000,
+            "help": "It at which equivariance max (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--eq-end-it"
+            ]
+        },
+        "norm": {
+            "help": "Data normalization as shift, 1/scale (default: mean, std of dataset)",
+            "nargs": 2,
+            "type": "float",
+            "flags": [
+                "--norm"
+            ]
+        },
+        "l_ramp_epochs": {
+            "default": 0,
+            "help": "Number of epochs to ramp up to --l-end (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--l-ramp-epochs"
+            ]
+        },
+        "l_ramp_model": {
+            "default": 0,
+            "help": "If 1, then during ramp only train the model up to l-max (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--l-ramp-model"
+            ]
+        },
+        "reset_model_every": {
+            "help": "If set, reset the model every N epochs",
+            "type": "int",
+            "flags": [
+                "--reset-model-every"
+            ]
+        },
+        "reset_optim_every": {
+            "help": "If set, reset the optimizer every N epochs",
+            "type": "int",
+            "flags": [
+                "--reset-optim-every"
+            ]
+        },
+        "reset_optim_after_pretrain": {
+            "help": "If set, reset the optimizer every N epochs",
+            "type": "int",
+            "flags": [
+                "--reset-optim-after-pretrain"
+            ]
+        },
+        "multigpu": {
+            "const": true,
+            "default": false,
+            "help": "Parallelize training across all detected GPUs",
+            "nargs": 0,
+            "flags": [
+                "--multigpu"
+            ]
+        }
+    },
+    "Pose Search parameters": {
+        "l_start": {
+            "default": 12,
+            "help": "Starting L radius (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--l-start"
+            ]
+        },
+        "l_end": {
+            "default": 32,
+            "help": "End L radius (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--l-end"
+            ]
+        },
+        "niter": {
+            "default": 4,
+            "help": "Number of iterations of grid subdivision (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--niter"
+            ]
+        },
+        "t_extent": {
+            "default": 10,
+            "help": "+/- pixels to search over translations (default: %(default)s)",
+            "type": "float",
+            "flags": [
+                "--t-extent"
+            ]
+        },
+        "t_ngrid": {
+            "default": 7,
+            "help": "Initial grid size for translations (default: %(default)s)",
+            "type": "float",
+            "flags": [
+                "--t-ngrid"
+            ]
+        },
+        "t_xshift": {
+            "default": 0,
+            "help": "X-axis translation shift (default: %(default)s)",
+            "type": "float",
+            "flags": [
+                "--t-xshift"
+            ]
+        },
+        "t_yshift": {
+            "default": 0,
+            "help": "Y-axis translation shift (default: %(default)s)",
+            "type": "float",
+            "flags": [
+                "--t-yshift"
+            ]
+        },
+        "pretrain": {
+            "default": 10000,
+            "help": "Number of initial iterations with random poses (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--pretrain"
+            ]
+        },
+        "ps_freq": {
+            "default": 5,
+            "help": "Frequency of pose inference (default: every %(default)s epochs)",
+            "type": "int",
+            "flags": [
+                "--ps-freq"
+            ]
+        },
+        "nkeptposes": {
+            "default": 8,
+            "help": "Number of poses to keep at each refinement interation during branch and bound (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--nkeptposes"
+            ]
+        },
+        "base_healpy": {
+            "default": 2,
+            "help": "Base healpy grid for pose search. Higher means exponentially higher resolution (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--base-healpy"
+            ]
+        },
+        "pose_model_update_freq": {
+            "help": "If set, only update the model used for pose search every N examples",
+            "type": "int",
+            "flags": [
+                "--pose-model-update-freq"
+            ]
+        }
+    },
+    "Encoder Network": {
+        "qlayers": {
+            "default": 3,
+            "help": "Number of hidden layers (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--enc-layers"
+            ]
+        },
+        "qdim": {
+            "default": 256,
+            "help": "Number of nodes in hidden layers (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--enc-dim"
+            ]
+        },
+        "encode_mode": {
+            "choices": [
+                "conv",
+                "resid",
+                "mlp",
+                "tilt"
+            ],
+            "default": "resid",
+            "help": "Type of encoder network (default: %(default)s)",
+            "flags": [
+                "--encode-mode"
+            ]
+        },
+        "enc_mask": {
+            "help": "Circular mask of image for encoder (default: D/2; -1 for no mask)",
+            "type": "int",
+            "flags": [
+                "--enc-mask"
+            ]
+        },
+        "use_real": {
+            "const": true,
+            "default": false,
+            "help": "Use real space image for encoder (for convolutional encoder)",
+            "nargs": 0,
+            "flags": [
+                "--use-real"
+            ]
+        }
+    },
+    "Decoder Network": {
+        "players": {
+            "default": 3,
+            "help": "Number of hidden layers (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--dec-layers"
+            ]
+        },
+        "pdim": {
+            "default": 256,
+            "help": "Number of nodes in hidden layers (default: %(default)s)",
+            "type": "int",
+            "flags": [
+                "--dec-dim"
+            ]
+        },
+        "pe_type": {
+            "choices": [
+                "geom_ft",
+                "geom_full",
+                "geom_lowf",
+                "geom_nohighf",
+                "linear_lowf",
+                "gaussian",
+                "none"
+            ],
+            "default": "gaussian",
+            "help": "Type of positional encoding (default: %(default)s)",
+            "flags": [
+                "--pe-type"
+            ]
+        },
+        "feat_sigma": {
+            "default": 0.5,
+            "help": "Scale for random Gaussian features (default: %(default)s)",
+            "type": "float",
+            "flags": [
+                "--feat-sigma"
+            ]
+        },
+        "pe_dim": {
+            "help": "Num frequencies in positional encoding (default: image D/2)",
+            "type": "int",
+            "flags": [
+                "--pe-dim"
+            ]
+        },
+        "domain": {
+            "choices": [
+                "hartley",
+                "fourier"
+            ],
+            "default": "hartley",
+            "help": "Volume decoder representation (default: %(default)s)",
+            "flags": [
+                "--domain"
+            ]
+        },
+        "activation": {
+            "choices": [
+                "relu",
+                "leaky_relu"
+            ],
+            "default": "relu",
+            "help": "Activation (default: %(default)s)",
+            "flags": [
+                "--activation"
+            ]
+        }
+    }
+}

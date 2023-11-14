@@ -1,0 +1,33 @@
+{
+    "positional arguments": {
+        "input": {
+            "help": "RELION .star file"
+        }
+    },
+    "options": {
+        "o": {
+            "help": "Output pose.pkl",
+            "metavar": "PKL",
+            "type": "abspath",
+            "flags": [
+                "-o"
+            ]
+        }
+    },
+    "Optionally provide missing image parameters": {
+        "D": {
+            "help": "Box size of reconstruction (pixels)",
+            "type": "int",
+            "flags": [
+                "-D"
+            ]
+        },
+        "Apix": {
+            "help": "Pixel size (A); Required if translations are specified in Angstroms",
+            "type": "float",
+            "flags": [
+                "--Apix"
+            ]
+        }
+    }
+}
