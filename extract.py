@@ -14,34 +14,38 @@ class Arg:
 def main():
     parser = argparse.ArgumentParser(description='Example parser')
     example.add_args(parser)
-    args = {"required": {}, "optional": {}}
-    for arg in parser._actions:
-        details = {}
+    args = {}
 
-        if arg.dest == "help":
-            continue
+    for arg_group in parser._action_groups:
+         args[arg_group.title] = {}
+         for arg in arg_group._group_actions:
+            details = {}
 
-        if arg.nargs is not None:
-            details["nargs"] = arg.nargs
-        if arg.type is not None:
-            details["type"] = arg.type.__name__
-        if len(arg.option_strings) > 0:
-            details["flags"] = arg.option_strings
-        if arg.help is not None:
-            details["help"] = arg.help
-        if arg.choices is not None:
-            details["choices"] = arg.choices
-        
-        if arg.required: 
-            args["required"][arg.dest] = details
-        else:
-            args["optional"][arg.dest] = details
+            if arg.dest == "help":
+                continue
+
+            if arg.choices is not None:
+                details["choices"] = arg.choices
+            if arg.const is not None:
+                details["const"] = arg.const
+            if arg.default is not None:
+                details["default"] = arg.default
+            if arg.help is not None:
+                details["help"] = arg.help
+            if arg.metavar is not None:
+                details["metavar"] = arg.metavar
+            if arg.nargs is not None:
+                details["nargs"] = arg.nargs
+            if arg.type is not None:
+                details["type"] = arg.type.__name__
+   
+            args[arg_group.title][arg.dest] = details
     
-    print(args)
+    # print(args)
     # with open('args.yml', 'w') as outfile:
     #     yaml.dump(args, outfile)
-    # with open('args.json', 'w', encoding='utf-8') as f:
-    #     json.dump(args, f, ensure_ascii=False, indent=4)
+    with open('args.json', 'w', encoding='utf-8') as f:
+        json.dump(args, f, ensure_ascii=False, indent=4)
 
         #handle argument group
 
