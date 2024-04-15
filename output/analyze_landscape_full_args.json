@@ -1,137 +1,140 @@
 {
-    "positional arguments": {
-        "workdir": {
-            "help": "Directory with cryoDRGN results",
-            "type": "abspath"
+    "desc": "",
+    "args": {
+        "positional arguments": {
+            "workdir": {
+                "help": "Directory with cryoDRGN results",
+                "type": "abspath"
+            },
+            "epoch": {
+                "help": "Epoch number N to analyze (0-based indexing, corresponding to z.N.pkl, weights.N.pkl)",
+                "type": "int"
+            }
         },
-        "epoch": {
-            "help": "Epoch number N to analyze (0-based indexing, corresponding to z.N.pkl, weights.N.pkl)",
-            "type": "int"
-        }
-    },
-    "options": {
-        "device": {
-            "help": "Optionally specify CUDA device",
-            "type": "int",
-            "flags": [
-                "--device"
-            ]
+        "optional arguments": {
+            "device": {
+                "help": "Optionally specify CUDA device",
+                "type": "int",
+                "flags": [
+                    "--device"
+                ]
+            },
+            "landscape_dir": {
+                "help": "Landscape analysis directory (default: [workdir]/landscape.[epoch])",
+                "type": "abspath",
+                "flags": [
+                    "--landscape-dir"
+                ]
+            },
+            "outdir": {
+                "help": "Output directory (default: [workdir]/landscape.[epoch]/landscape_full)",
+                "type": "abspath",
+                "flags": [
+                    "-o",
+                    "--outdir"
+                ]
+            },
+            "seed": {
+                "default": 0,
+                "help": "Random seed (default: %(default)s)",
+                "type": "int",
+                "flags": [
+                    "--seed"
+                ]
+            }
         },
-        "landscape_dir": {
-            "help": "Landscape analysis directory (default: [workdir]/landscape.[epoch])",
-            "type": "abspath",
-            "flags": [
-                "--landscape-dir"
-            ]
+        "volume generation arguments": {
+            "N": {
+                "default": 10000,
+                "help": "Number of training volumes to generate (default: %(default)s)",
+                "type": "int",
+                "flags": [
+                    "-N"
+                ]
+            },
+            "flip": {
+                "const": true,
+                "default": false,
+                "help": "Flip handedness",
+                "nargs": 0,
+                "flags": [
+                    "--flip"
+                ]
+            },
+            "downsample": {
+                "default": 128,
+                "help": "Downsample volumes to this box size (pixels) (default: %(default)s)",
+                "type": "int",
+                "flags": [
+                    "-d",
+                    "--downsample"
+                ]
+            },
+            "skip_vol": {
+                "const": true,
+                "default": false,
+                "help": "Skip generation of volumes",
+                "nargs": 0,
+                "flags": [
+                    "--skip-vol"
+                ]
+            }
         },
-        "outdir": {
-            "help": "Output directory (default: [workdir]/landscape.[epoch]/landscape_full)",
-            "type": "abspath",
-            "flags": [
-                "-o",
-                "--outdir"
-            ]
-        },
-        "seed": {
-            "default": 0,
-            "help": "Random seed (default: %(default)s)",
-            "type": "int",
-            "flags": [
-                "--seed"
-            ]
-        }
-    },
-    "Volume generation arguments": {
-        "N": {
-            "default": 10000,
-            "help": "Number of training volumes to generate (default: %(default)s)",
-            "type": "int",
-            "flags": [
-                "-N"
-            ]
-        },
-        "flip": {
-            "const": true,
-            "default": false,
-            "help": "Flip handedness",
-            "nargs": 0,
-            "flags": [
-                "--flip"
-            ]
-        },
-        "downsample": {
-            "default": 128,
-            "help": "Downsample volumes to this box size (pixels) (default: %(default)s)",
-            "type": "int",
-            "flags": [
-                "-d",
-                "--downsample"
-            ]
-        },
-        "skip_vol": {
-            "const": true,
-            "default": false,
-            "help": "Skip generation of volumes",
-            "nargs": 0,
-            "flags": [
-                "--skip-vol"
-            ]
-        }
-    },
-    "Volume mapping arguments": {
-        "batch_size": {
-            "default": 64,
-            "help": "input batch size for training (default: 64)",
-            "metavar": "N",
-            "type": "int",
-            "flags": [
-                "--batch-size"
-            ]
-        },
-        "test_batch_size": {
-            "default": 1000,
-            "help": "input batch size for testing (default: 1000)",
-            "metavar": "N",
-            "type": "int",
-            "flags": [
-                "--test-batch-size"
-            ]
-        },
-        "epochs": {
-            "default": 50,
-            "help": "number of epochs to train (default: 14)",
-            "metavar": "N",
-            "type": "int",
-            "flags": [
-                "--epochs"
-            ]
-        },
-        "lr": {
-            "default": 0.001,
-            "help": "learning rate (default: 1e-3)",
-            "metavar": "LR",
-            "type": "float",
-            "flags": [
-                "--lr"
-            ]
-        },
-        "dim": {
-            "default": 512,
-            "help": "MLP hidden layer dimension (default: 512)",
-            "metavar": "N",
-            "type": "int",
-            "flags": [
-                "--dim"
-            ]
-        },
-        "layers": {
-            "default": 3,
-            "help": "MLP number of hidden layers (default: 3)",
-            "metavar": "N",
-            "type": "int",
-            "flags": [
-                "--layers"
-            ]
+        "volume mapping arguments": {
+            "batch_size": {
+                "default": 64,
+                "help": "input batch size for training (default: 64)",
+                "metavar": "N",
+                "type": "int",
+                "flags": [
+                    "--batch-size"
+                ]
+            },
+            "test_batch_size": {
+                "default": 1000,
+                "help": "input batch size for testing (default: 1000)",
+                "metavar": "N",
+                "type": "int",
+                "flags": [
+                    "--test-batch-size"
+                ]
+            },
+            "epochs": {
+                "default": 50,
+                "help": "number of epochs to train (default: 14)",
+                "metavar": "N",
+                "type": "int",
+                "flags": [
+                    "--epochs"
+                ]
+            },
+            "lr": {
+                "default": 0.001,
+                "help": "learning rate (default: 1e-3)",
+                "metavar": "LR",
+                "type": "float",
+                "flags": [
+                    "--lr"
+                ]
+            },
+            "dim": {
+                "default": 512,
+                "help": "MLP hidden layer dimension (default: 512)",
+                "metavar": "N",
+                "type": "int",
+                "flags": [
+                    "--dim"
+                ]
+            },
+            "layers": {
+                "default": 3,
+                "help": "MLP number of hidden layers (default: 3)",
+                "metavar": "N",
+                "type": "int",
+                "flags": [
+                    "--layers"
+                ]
+            }
         }
     }
 }

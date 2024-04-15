@@ -1,42 +1,45 @@
 {
-    "positional arguments": {
-        "input": {
-            "help": "Cryosparc .cs file"
-        }
-    },
-    "options": {
-        "abinit": {
-            "const": true,
-            "default": false,
-            "help": "Flag if results are from ab-initio reconstruction",
-            "nargs": 0,
-            "flags": [
-                "--abinit"
-            ]
+    "desc": "Parse image poses from a cryoSPARC .cs metafile",
+    "args": {
+        "positional arguments": {
+            "input": {
+                "help": "Cryosparc .cs file"
+            }
         },
-        "hetrefine": {
-            "const": true,
-            "default": false,
-            "help": "Flag if results are from a heterogeneous refinements (default: homogeneous refinement)",
-            "nargs": 0,
-            "flags": [
-                "--hetrefine"
-            ]
-        },
-        "D": {
-            "help": "Box size of reconstruction (pixels)",
-            "type": "int",
-            "flags": [
-                "-D"
-            ]
-        },
-        "o": {
-            "help": "Output pose.pkl",
-            "metavar": "PKL",
-            "type": "abspath",
-            "flags": [
-                "-o"
-            ]
+        "optional arguments": {
+            "abinit": {
+                "const": true,
+                "default": false,
+                "help": "Flag if results are from ab-initio reconstruction",
+                "nargs": 0,
+                "flags": [
+                    "--abinit"
+                ]
+            },
+            "hetrefine": {
+                "const": true,
+                "default": false,
+                "help": "Flag if results are from a heterogeneous refinements (default: homogeneous refinement)",
+                "nargs": 0,
+                "flags": [
+                    "--hetrefine"
+                ]
+            },
+            "D": {
+                "help": "Box size of reconstruction (pixels)",
+                "type": "int",
+                "flags": [
+                    "-D"
+                ]
+            },
+            "o": {
+                "help": "Output pose.pkl",
+                "metavar": "PKL",
+                "type": "abspath",
+                "flags": [
+                    "-o"
+                ]
+            }
         }
     }
 }

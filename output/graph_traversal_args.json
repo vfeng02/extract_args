@@ -1,60 +1,63 @@
 {
-    "positional arguments": {
-        "data": {
-            "help": "Input z.pkl embeddings"
-        }
-    },
-    "options": {
-        "anchors": {
-            "help": "Index of anchor points",
-            "nargs": "+",
-            "type": "int",
-            "flags": [
-                "--anchors"
-            ]
+    "desc": "Find shortest path along nearest neighbor graph",
+    "args": {
+        "positional arguments": {
+            "data": {
+                "help": "Input z.pkl embeddings"
+            }
         },
-        "max_neighbors": {
-            "default": 10,
-            "type": "int",
-            "flags": [
-                "--max-neighbors"
-            ]
-        },
-        "avg_neighbors": {
-            "default": 5,
-            "type": "float",
-            "flags": [
-                "--avg-neighbors"
-            ]
-        },
-        "batch_size": {
-            "default": 1000,
-            "type": "int",
-            "flags": [
-                "--batch-size"
-            ]
-        },
-        "max_images": {
-            "type": "int",
-            "flags": [
-                "--max-images"
-            ]
-        },
-        "o": {
-            "help": "Output .txt file for path indices",
-            "metavar": "PATH.TXT",
-            "type": "abspath",
-            "flags": [
-                "-o"
-            ]
-        },
-        "out_z": {
-            "help": "Output .txt file for path z-values",
-            "metavar": "Z.PATH.TXT",
-            "type": "abspath",
-            "flags": [
-                "--out-z"
-            ]
+        "optional arguments": {
+            "anchors": {
+                "help": "Index of anchor points",
+                "nargs": "+",
+                "type": "int",
+                "flags": [
+                    "--anchors"
+                ]
+            },
+            "max_neighbors": {
+                "default": 10,
+                "type": "int",
+                "flags": [
+                    "--max-neighbors"
+                ]
+            },
+            "avg_neighbors": {
+                "default": 5,
+                "type": "float",
+                "flags": [
+                    "--avg-neighbors"
+                ]
+            },
+            "batch_size": {
+                "default": 1000,
+                "type": "int",
+                "flags": [
+                    "--batch-size"
+                ]
+            },
+            "max_images": {
+                "type": "int",
+                "flags": [
+                    "--max-images"
+                ]
+            },
+            "o": {
+                "help": "Output .txt file for path indices",
+                "metavar": "PATH.TXT",
+                "type": "abspath",
+                "flags": [
+                    "-o"
+                ]
+            },
+            "out_z": {
+                "help": "Output .txt file for path z-values",
+                "metavar": "Z.PATH.TXT",
+                "type": "abspath",
+                "flags": [
+                    "--out-z"
+                ]
+            }
         }
     }
 }

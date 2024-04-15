@@ -1,40 +1,43 @@
 {
-    "positional arguments": {
-        "cs": {
-            "help": "Input cryosparc particles.cs file"
-        }
-    },
-    "options": {
-        "o": {
-            "help": "Output pkl of CTF parameters",
-            "type": "abspath",
-            "flags": [
-                "-o"
-            ]
+    "desc": "Parse CTF parameters from a cryoSPARC particles.cs file",
+    "args": {
+        "positional arguments": {
+            "cs": {
+                "help": "Input cryosparc particles.cs file"
+            }
         },
-        "png": {
-            "help": "Optionally plot the CTF",
-            "metavar": "PNG",
-            "type": "abspath",
-            "flags": [
-                "--png"
-            ]
-        }
-    },
-    "Optionally provide missing image parameters": {
-        "D": {
-            "help": "Image size in pixels",
-            "type": "int",
-            "flags": [
-                "-D"
-            ]
+        "optional arguments": {
+            "o": {
+                "help": "Output pkl of CTF parameters",
+                "type": "abspath",
+                "flags": [
+                    "-o"
+                ]
+            },
+            "png": {
+                "help": "Optionally plot the CTF",
+                "metavar": "PNG",
+                "type": "abspath",
+                "flags": [
+                    "--png"
+                ]
+            }
         },
-        "Apix": {
-            "help": "Angstroms per pixel",
-            "type": "float",
-            "flags": [
-                "--Apix"
-            ]
+        "optionally provide missing image parameters": {
+            "D": {
+                "help": "Image size in pixels",
+                "type": "int",
+                "flags": [
+                    "-D"
+                ]
+            },
+            "Apix": {
+                "help": "Angstroms per pixel",
+                "type": "float",
+                "flags": [
+                    "--Apix"
+                ]
+            }
         }
     }
 }

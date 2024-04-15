@@ -1,48 +1,51 @@
 {
-    "positional arguments": {
-        "z": {
-            "help": "Input z.pkl"
-        }
-    },
-    "options": {
-        "dim": {
-            "help": "Choose PC (1-based indexing) (default: all)",
-            "type": "int",
-            "flags": [
-                "--dim"
-            ]
+    "desc": "Generate trajectory along PCs",
+    "args": {
+        "positional arguments": {
+            "z": {
+                "help": "Input z.pkl"
+            }
         },
-        "n": {
-            "default": 10,
-            "help": "Number of samples along PC (default: %(default)s)",
-            "type": "int",
-            "flags": [
-                "-n"
-            ]
-        },
-        "lim": {
-            "help": "Start and end point of trajectory (default: 5/95th percentile)",
-            "nargs": 2,
-            "type": "float",
-            "flags": [
-                "--lim"
-            ]
-        },
-        "use_percentile_spacing": {
-            "const": true,
-            "default": false,
-            "help": "Use equally spaced percentiles of the distribution instead of equally spaced points along the PC",
-            "nargs": 0,
-            "flags": [
-                "--use-percentile-spacing"
-            ]
-        },
-        "o": {
-            "help": "Output directory for pc.X.txt files",
-            "type": "abspath",
-            "flags": [
-                "-o"
-            ]
+        "optional arguments": {
+            "dim": {
+                "help": "Choose PC (1-based indexing) (default: all)",
+                "type": "int",
+                "flags": [
+                    "--dim"
+                ]
+            },
+            "n": {
+                "default": 10,
+                "help": "Number of samples along PC (default: %(default)s)",
+                "type": "int",
+                "flags": [
+                    "-n"
+                ]
+            },
+            "lim": {
+                "help": "Start and end point of trajectory (default: 5/95th percentile)",
+                "nargs": 2,
+                "type": "float",
+                "flags": [
+                    "--lim"
+                ]
+            },
+            "use_percentile_spacing": {
+                "const": true,
+                "default": false,
+                "help": "Use equally spaced percentiles of the distribution instead of equally spaced points along the PC",
+                "nargs": 0,
+                "flags": [
+                    "--use-percentile-spacing"
+                ]
+            },
+            "o": {
+                "help": "Output directory for pc.X.txt files",
+                "type": "abspath",
+                "flags": [
+                    "-o"
+                ]
+            }
         }
     }
 }

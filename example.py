@@ -3,6 +3,7 @@ import os
 import os.path
 
 def add_args(parser): 
+    parser.description = "Construct z path interpolating between anchor points"
     parser.add_argument(
         "workdir", type=os.path.abspath, help="Directory with cryoDRGN results"
     )

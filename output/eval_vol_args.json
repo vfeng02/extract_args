@@ -1,257 +1,260 @@
 {
-    "positional arguments": {
-        "weights": {
-            "help": "Model weights"
-        }
-    },
-    "options": {
-        "config": {
-            "help": "CryoDRGN config.yaml file",
-            "metavar": "YAML",
-            "flags": [
-                "-c",
-                "--config"
-            ]
+    "desc": "Evaluate the decoder at specified values of z",
+    "args": {
+        "positional arguments": {
+            "weights": {
+                "help": "Model weights"
+            }
         },
-        "o": {
-            "help": "Output .mrc or directory",
-            "type": "abspath",
-            "flags": [
-                "-o"
-            ]
+        "optional arguments": {
+            "config": {
+                "help": "CryoDRGN config.yaml file",
+                "metavar": "YAML",
+                "flags": [
+                    "-c",
+                    "--config"
+                ]
+            },
+            "o": {
+                "help": "Output .mrc or directory",
+                "type": "abspath",
+                "flags": [
+                    "-o"
+                ]
+            },
+            "device": {
+                "help": "Optionally specify CUDA device",
+                "type": "int",
+                "flags": [
+                    "--device"
+                ]
+            },
+            "prefix": {
+                "default": "vol_",
+                "help": "Prefix when writing out multiple .mrc files (default: %(default)s)",
+                "flags": [
+                    "--prefix"
+                ]
+            },
+            "verbose": {
+                "const": true,
+                "default": false,
+                "help": "Increase verbosity",
+                "nargs": 0,
+                "flags": [
+                    "-v",
+                    "--verbose"
+                ]
+            }
         },
-        "device": {
-            "help": "Optionally specify CUDA device",
-            "type": "int",
-            "flags": [
-                "--device"
-            ]
+        "specify z values": {
+            "z": {
+                "help": "Specify one z-value",
+                "nargs": "*",
+                "type": "float32",
+                "flags": [
+                    "-z"
+                ]
+            },
+            "z_start": {
+                "help": "Specify a starting z-value",
+                "nargs": "*",
+                "type": "float32",
+                "flags": [
+                    "--z-start"
+                ]
+            },
+            "z_end": {
+                "help": "Specify an ending z-value",
+                "nargs": "*",
+                "type": "float32",
+                "flags": [
+                    "--z-end"
+                ]
+            },
+            "n": {
+                "default": 10,
+                "help": "Number of structures between [z_start, z_end]",
+                "type": "int",
+                "flags": [
+                    "-n"
+                ]
+            },
+            "zfile": {
+                "help": "Text file with z-values to evaluate",
+                "flags": [
+                    "--zfile"
+                ]
+            }
         },
-        "prefix": {
-            "default": "vol_",
-            "help": "Prefix when writing out multiple .mrc files (default: %(default)s)",
-            "flags": [
-                "--prefix"
-            ]
+        "volume arguments": {
+            "Apix": {
+                "default": 1,
+                "help": "Pixel size to add to .mrc header (default: %(default)s A/pix)",
+                "type": "float",
+                "flags": [
+                    "--Apix"
+                ]
+            },
+            "flip": {
+                "const": true,
+                "default": false,
+                "help": "Flip handedness of output volume",
+                "nargs": 0,
+                "flags": [
+                    "--flip"
+                ]
+            },
+            "invert": {
+                "const": true,
+                "default": false,
+                "help": "Invert contrast of output volume",
+                "nargs": 0,
+                "flags": [
+                    "--invert"
+                ]
+            },
+            "downsample": {
+                "help": "Downsample volumes to this box size (pixels)",
+                "type": "int",
+                "flags": [
+                    "-d",
+                    "--downsample"
+                ]
+            },
+            "vol_start_index": {
+                "default": 0,
+                "help": "Default value of start index for volume generation (default: %(default)s)",
+                "type": "int",
+                "flags": [
+                    "--vol-start-index"
+                ]
+            }
         },
-        "verbose": {
-            "const": true,
-            "default": false,
-            "help": "Increase verbosity",
-            "nargs": 0,
-            "flags": [
-                "-v",
-                "--verbose"
-            ]
-        }
-    },
-    "Specify z values": {
-        "z": {
-            "help": "Specify one z-value",
-            "nargs": "*",
-            "type": "float32",
-            "flags": [
-                "-z"
-            ]
-        },
-        "z_start": {
-            "help": "Specify a starting z-value",
-            "nargs": "*",
-            "type": "float32",
-            "flags": [
-                "--z-start"
-            ]
-        },
-        "z_end": {
-            "help": "Specify an ending z-value",
-            "nargs": "*",
-            "type": "float32",
-            "flags": [
-                "--z-end"
-            ]
-        },
-        "n": {
-            "default": 10,
-            "help": "Number of structures between [z_start, z_end]",
-            "type": "int",
-            "flags": [
-                "-n"
-            ]
-        },
-        "zfile": {
-            "help": "Text file with z-values to evaluate",
-            "flags": [
-                "--zfile"
-            ]
-        }
-    },
-    "Volume arguments": {
-        "Apix": {
-            "default": 1,
-            "help": "Pixel size to add to .mrc header (default: %(default)s A/pix)",
-            "type": "float",
-            "flags": [
-                "--Apix"
-            ]
-        },
-        "flip": {
-            "const": true,
-            "default": false,
-            "help": "Flip handedness of output volume",
-            "nargs": 0,
-            "flags": [
-                "--flip"
-            ]
-        },
-        "invert": {
-            "const": true,
-            "default": false,
-            "help": "Invert contrast of output volume",
-            "nargs": 0,
-            "flags": [
-                "--invert"
-            ]
-        },
-        "downsample": {
-            "help": "Downsample volumes to this box size (pixels)",
-            "type": "int",
-            "flags": [
-                "-d",
-                "--downsample"
-            ]
-        },
-        "vol_start_index": {
-            "default": 0,
-            "help": "Default value of start index for volume generation (default: %(default)s)",
-            "type": "int",
-            "flags": [
-                "--vol-start-index"
-            ]
-        }
-    },
-    "Overwrite architecture hyperparameters in config.yaml": {
-        "norm": {
-            "nargs": 2,
-            "type": "float",
-            "flags": [
-                "--norm"
-            ]
-        },
-        "D": {
-            "help": "Box size",
-            "type": "int",
-            "flags": [
-                "-D"
-            ]
-        },
-        "qlayers": {
-            "help": "Number of hidden layers",
-            "type": "int",
-            "flags": [
-                "--enc-layers"
-            ]
-        },
-        "qdim": {
-            "help": "Number of nodes in hidden layers",
-            "type": "int",
-            "flags": [
-                "--enc-dim"
-            ]
-        },
-        "zdim": {
-            "help": "Dimension of latent variable",
-            "type": "int",
-            "flags": [
-                "--zdim"
-            ]
-        },
-        "encode_mode": {
-            "choices": [
-                "conv",
-                "resid",
-                "mlp",
-                "tilt"
-            ],
-            "help": "Type of encoder network",
-            "flags": [
-                "--encode-mode"
-            ]
-        },
-        "players": {
-            "help": "Number of hidden layers",
-            "type": "int",
-            "flags": [
-                "--dec-layers"
-            ]
-        },
-        "pdim": {
-            "help": "Number of nodes in hidden layers",
-            "type": "int",
-            "flags": [
-                "--dec-dim"
-            ]
-        },
-        "enc_mask": {
-            "help": "Circular mask radius for image encoder",
-            "type": "int",
-            "flags": [
-                "--enc-mask"
-            ]
-        },
-        "pe_type": {
-            "choices": [
-                "geom_ft",
-                "geom_full",
-                "geom_lowf",
-                "geom_nohighf",
-                "linear_lowf",
-                "none"
-            ],
-            "help": "Type of positional encoding",
-            "flags": [
-                "--pe-type"
-            ]
-        },
-        "feat_sigma": {
-            "help": "Scale for random Gaussian features",
-            "type": "float",
-            "flags": [
-                "--feat-sigma"
-            ]
-        },
-        "pe_dim": {
-            "help": "Num sinusoid features in positional encoding (default: D/2)",
-            "type": "int",
-            "flags": [
-                "--pe-dim"
-            ]
-        },
-        "domain": {
-            "choices": [
-                "hartley",
-                "fourier"
-            ],
-            "flags": [
-                "--domain"
-            ]
-        },
-        "l_extent": {
-            "help": "Coordinate lattice size",
-            "type": "float",
-            "flags": [
-                "--l-extent"
-            ]
-        },
-        "activation": {
-            "choices": [
-                "relu",
-                "leaky_relu"
-            ],
-            "default": "relu",
-            "help": "Activation (default: %(default)s)",
-            "flags": [
-                "--activation"
-            ]
+        "overwrite architecture hyperparameters in config.yaml": {
+            "norm": {
+                "nargs": 2,
+                "type": "float",
+                "flags": [
+                    "--norm"
+                ]
+            },
+            "D": {
+                "help": "Box size",
+                "type": "int",
+                "flags": [
+                    "-D"
+                ]
+            },
+            "qlayers": {
+                "help": "Number of hidden layers",
+                "type": "int",
+                "flags": [
+                    "--enc-layers"
+                ]
+            },
+            "qdim": {
+                "help": "Number of nodes in hidden layers",
+                "type": "int",
+                "flags": [
+                    "--enc-dim"
+                ]
+            },
+            "zdim": {
+                "help": "Dimension of latent variable",
+                "type": "int",
+                "flags": [
+                    "--zdim"
+                ]
+            },
+            "encode_mode": {
+                "choices": [
+                    "conv",
+                    "resid",
+                    "mlp",
+                    "tilt"
+                ],
+                "help": "Type of encoder network",
+                "flags": [
+                    "--encode-mode"
+                ]
+            },
+            "players": {
+                "help": "Number of hidden layers",
+                "type": "int",
+                "flags": [
+                    "--dec-layers"
+                ]
+            },
+            "pdim": {
+                "help": "Number of nodes in hidden layers",
+                "type": "int",
+                "flags": [
+                    "--dec-dim"
+                ]
+            },
+            "enc_mask": {
+                "help": "Circular mask radius for image encoder",
+                "type": "int",
+                "flags": [
+                    "--enc-mask"
+                ]
+            },
+            "pe_type": {
+                "choices": [
+                    "geom_ft",
+                    "geom_full",
+                    "geom_lowf",
+                    "geom_nohighf",
+                    "linear_lowf",
+                    "none"
+                ],
+                "help": "Type of positional encoding",
+                "flags": [
+                    "--pe-type"
+                ]
+            },
+            "feat_sigma": {
+                "help": "Scale for random Gaussian features",
+                "type": "float",
+                "flags": [
+                    "--feat-sigma"
+                ]
+            },
+            "pe_dim": {
+                "help": "Num sinusoid features in positional encoding (default: D/2)",
+                "type": "int",
+                "flags": [
+                    "--pe-dim"
+                ]
+            },
+            "domain": {
+                "choices": [
+                    "hartley",
+                    "fourier"
+                ],
+                "flags": [
+                    "--domain"
+                ]
+            },
+            "l_extent": {
+                "help": "Coordinate lattice size",
+                "type": "float",
+                "flags": [
+                    "--l-extent"
+                ]
+            },
+            "activation": {
+                "choices": [
+                    "relu",
+                    "leaky_relu"
+                ],
+                "default": "relu",
+                "help": "Activation (default: %(default)s)",
+                "flags": [
+                    "--activation"
+                ]
+            }
         }
     }
 }

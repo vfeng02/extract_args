@@ -1,112 +1,115 @@
 {
-    "positional arguments": {
-        "mrcs": {
-            "help": "Input particles or volume (.mrc, .mrcs, .star, or .txt)"
-        }
-    },
-    "options": {
-        "o": {
-            "help": "Output .mrcs",
-            "metavar": "MRCS",
-            "type": "abspath",
-            "flags": [
-                "-o"
-            ]
+    "desc": "Preprocess a dataset for more streamlined cryoDRGN training",
+    "args": {
+        "positional arguments": {
+            "mrcs": {
+                "help": "Input particles or volume (.mrc, .mrcs, .star, or .txt)"
+            }
         },
-        "datadir": {
-            "help": "Optionally provide path to input .mrcs if loading from a .star or .cs file",
-            "flags": [
-                "--datadir"
-            ]
-        }
-    },
-    "Image preprocessing settings": {
-        "ind": {
-            "help": "Filter particle stack by these indices",
-            "metavar": "PKL",
-            "type": "abspath",
-            "flags": [
-                "--ind"
-            ]
+        "optional arguments": {
+            "o": {
+                "help": "Output .mrcs",
+                "metavar": "MRCS",
+                "type": "abspath",
+                "flags": [
+                    "-o"
+                ]
+            },
+            "datadir": {
+                "help": "Optionally provide path to input .mrcs if loading from a .star or .cs file",
+                "flags": [
+                    "--datadir"
+                ]
+            }
         },
-        "D": {
-            "help": "New box size in pixels (if downsampling), must be even",
-            "type": "int",
-            "flags": [
-                "-D"
-            ]
+        "image preprocessing settings": {
+            "ind": {
+                "help": "Filter particle stack by these indices",
+                "metavar": "PKL",
+                "type": "abspath",
+                "flags": [
+                    "--ind"
+                ]
+            },
+            "D": {
+                "help": "New box size in pixels (if downsampling), must be even",
+                "type": "int",
+                "flags": [
+                    "-D"
+                ]
+            },
+            "invert_data": {
+                "const": false,
+                "default": true,
+                "help": "Do not invert data sign",
+                "nargs": 0,
+                "flags": [
+                    "--uninvert-data"
+                ]
+            },
+            "window_r": {
+                "default": 0.85,
+                "help": "Circular windowing mask inner radius (default: %(default)s)",
+                "type": "float",
+                "flags": [
+                    "--window-r"
+                ]
+            },
+            "window": {
+                "const": false,
+                "default": true,
+                "help": "Turn off real space windowing of dataset",
+                "nargs": 0,
+                "flags": [
+                    "--no-window"
+                ]
+            }
         },
-        "invert_data": {
-            "const": false,
-            "default": true,
-            "help": "Do not invert data sign",
-            "nargs": 0,
-            "flags": [
-                "--uninvert-data"
-            ]
+        "extra arguments for image downsampling": {
+            "b": {
+                "default": 5000,
+                "help": "Batch size for processing images (default: %(default)s)",
+                "type": "int",
+                "flags": [
+                    "-b"
+                ]
+            },
+            "chunk": {
+                "default": 100000,
+                "help": "Chunksize (in # of images) to split particle stack when saving",
+                "type": "int",
+                "flags": [
+                    "--chunk"
+                ]
+            },
+            "lazy": {
+                "const": false,
+                "default": true,
+                "help": "Load whole dataset (faster than loading in batches)",
+                "nargs": 0,
+                "flags": [
+                    "--no-lazy"
+                ]
+            },
+            "max_threads": {
+                "default": 16,
+                "help": "Maximum number of CPU cores for parallelization (default: %(default)s)",
+                "type": "int",
+                "flags": [
+                    "--max-threads"
+                ]
+            }
         },
-        "window_r": {
-            "default": 0.85,
-            "help": "Circular windowing mask inner radius (default: %(default)s)",
-            "type": "float",
-            "flags": [
-                "--window-r"
-            ]
-        },
-        "window": {
-            "const": false,
-            "default": true,
-            "help": "Turn off real space windowing of dataset",
-            "nargs": 0,
-            "flags": [
-                "--no-window"
-            ]
-        }
-    },
-    "Extra arguments for image downsampling": {
-        "b": {
-            "default": 5000,
-            "help": "Batch size for processing images (default: %(default)s)",
-            "type": "int",
-            "flags": [
-                "-b"
-            ]
-        },
-        "chunk": {
-            "default": 100000,
-            "help": "Chunksize (in # of images) to split particle stack when saving",
-            "type": "int",
-            "flags": [
-                "--chunk"
-            ]
-        },
-        "lazy": {
-            "const": false,
-            "default": true,
-            "help": "Load whole dataset (faster than loading in batches)",
-            "nargs": 0,
-            "flags": [
-                "--no-lazy"
-            ]
-        },
-        "max_threads": {
-            "default": 16,
-            "help": "Maximum number of CPU cores for parallelization (default: %(default)s)",
-            "type": "int",
-            "flags": [
-                "--max-threads"
-            ]
-        }
-    },
-    "GPU acceleratation": {
-        "use_cupy": {
-            "const": true,
-            "default": false,
-            "help": "Use cupy to replace numpy",
-            "nargs": 0,
-            "flags": [
-                "--use-cupy"
-            ]
+        "gpu acceleratation": {
+            "use_cupy": {
+                "const": true,
+                "default": false,
+                "help": "Use cupy to replace numpy",
+                "nargs": 0,
+                "flags": [
+                    "--use-cupy"
+                ]
+            }
         }
     }
 }

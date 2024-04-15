@@ -1,9 +1,12 @@
 {
-    "positional arguments": {
-        "workdir": {
-            "help": "Directory with cryoDRGN results",
-            "type": "abspath"
-        }
-    },
-    "options": {}
+    "desc": "Display config information of a cryoDRGN job",
+    "args": {
+        "positional arguments": {
+            "workdir": {
+                "help": "Directory with cryoDRGN results",
+                "type": "abspath"
+            }
+        },
+        "optional arguments": {}
+    }
 }

@@ -1,33 +1,36 @@
 {
-    "positional arguments": {
-        "input": {
-            "help": "RELION .star file"
-        }
-    },
-    "options": {
-        "o": {
-            "help": "Output pose.pkl",
-            "metavar": "PKL",
-            "type": "abspath",
-            "flags": [
-                "-o"
-            ]
-        }
-    },
-    "Optionally provide missing image parameters": {
-        "D": {
-            "help": "Box size of reconstruction (pixels)",
-            "type": "int",
-            "flags": [
-                "-D"
-            ]
+    "desc": "Parse image poses from RELION .star file",
+    "args": {
+        "positional arguments": {
+            "input": {
+                "help": "RELION .star file"
+            }
         },
-        "Apix": {
-            "help": "Pixel size (A); Required if translations are specified in Angstroms",
-            "type": "float",
-            "flags": [
-                "--Apix"
-            ]
+        "optional arguments": {
+            "o": {
+                "help": "Output pose.pkl",
+                "metavar": "PKL",
+                "type": "abspath",
+                "flags": [
+                    "-o"
+                ]
+            }
+        },
+        "optionally provide missing image parameters": {
+            "D": {
+                "help": "Box size of reconstruction (pixels)",
+                "type": "int",
+                "flags": [
+                    "-D"
+                ]
+            },
+            "Apix": {
+                "help": "Pixel size (A); Required if translations are specified in Angstroms",
+                "type": "float",
+                "flags": [
+                    "--Apix"
+                ]
+            }
         }
     }
 }

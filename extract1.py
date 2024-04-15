@@ -2,6 +2,7 @@ import sys
 import os
 import importlib
 import argparse
+import yaml
 import json
 
 def get_arg_details(module):
@@ -23,7 +24,8 @@ def get_arg_details(module):
         info["desc"] = ""
 
     for arg_group in parser._action_groups:
-        arg_group_title = arg_group.title.lower()
+        arg_group_title = arg_group.title.lower() if arg_group.title != "options" else "optional arguments"
+
         if arg_group_title == "options": 
             arg_group_title = "additional arguments"
         elif arg_group_title == "positional arguments":
@@ -58,18 +60,40 @@ def get_arg_details(module):
               args["required arguments"][arg.dest] = details
             else: 
               args[arg_group_title][arg.dest] = details
-        if len(args[arg_group_title]) == 0:
-            del args[arg_group_title]
     
     info["args"] = args
     return info
 
+# save as one json
+def save_as_one_json(modules):
+    all_commands = {}
+    for command in modules:
+        globals()[command] = importlib.import_module(command)
+        info = get_arg_details(globals()[command])
+        all_commands[command] = info
+    
+    with open('./output/all_args2.json', 'w', encoding='utf-8') as f:
+            json.dump(all_commands, f, ensure_ascii=False, indent=4)
+
+# save as separate jsons
+def save_as_jsons(modules):
+    for command in modules:
+        globals()[command] = importlib.import_module(command)
+        args = get_arg_details(globals()[command])
+
+        with open('./output/'+command+'_args.json', 'w', encoding='utf-8') as f:
+            json.dump(args, f, ensure_ascii=False, indent=2)
+
+
 def extract_args(cryodrgn_path):
+    # Need to handle direct_traversal separately
+    # import direct_traversal_add_args
+
 # '/scratch/gpfs/vyfeng/cryodrgn'
     sys.path.append(cryodrgn_path)
 
-    commands_path = cryodrgn_path + '/cryodrgn/commands'
-    commands_utils_path = cryodrgn_path + '/cryodrgn/commands_utils'
+    commands_path = cryodrgn_path + '/commands'
+    commands_utils_path = cryodrgn_path + '/commands_utils'
     utils_path = cryodrgn_path + '/utils'
 
     all_commands = {}
@@ -80,22 +104,26 @@ def extract_args(cryodrgn_path):
     conf_analysis = ["analyze_landscape", "analyze_landscape_full"]
     abinit = ["abinit_homo", "abinit_het"]
     misc = ["eval_images", "view_config", "eval_vol", "backproject_voxel"]
-    utils = [f[:-3] for f in os.listdir(commands_utils_path) if (f != '__init__.py' and f != '__pycache__')] + ["analyze_convergence"]
+    utils = [f[:-3] for f in os.listdir(commands_utils_path) if f != '__init__.py'] + ["analyze_convergence"]
 
     commands_groups = {"Preprocess Inputs": preprocess, "cryoDRGN Training": training, "cryoDRGN Analysis": analysis, "Conformational Landscape Analysis": conf_analysis, "cryoDRGN2 Ab Initio Reconstruction": abinit, "Misc": misc, "Utils": utils}
-    # commands_groups = {"Preprocess Inputs": ["downsample"]}
 
     for path in [commands_path, commands_utils_path, utils_path]:
         sys.path.append(path)
+        # if path == commands_path:
+        #     modules = ['direct_traversal_add_args'] # Need to handle direct_traversal separately
+        # modules += [f[:-3] for f in os.listdir(path) if f != '__init__.py' and f != 'direct_traversal.py' and f[-3:] == '.py']
+        # modules += [f[:-3] for f in os.listdir(path) if f != '__init__.py']
     
-    for group_name, modules in commands_groups.items():
-        all_commands[group_name] = {}
+    for group_name, modules in commands_groups:
         for command in modules:
           globals()[command] = importlib.import_module(command)
           info = get_arg_details(globals()[command])
           all_commands[group_name][command] = info
             
-    with open('./data/commands.json', 'w', encoding='utf-8') as f:
+    # save_as_one_json(modules)
+
+    with open('./data/all_args.json', 'w', encoding='utf-8') as f:
             json.dump(all_commands, f, ensure_ascii=False, indent=4)
 
     #remember to rename output json file

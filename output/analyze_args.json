@@ -1,106 +1,109 @@
 {
-    "positional arguments": {
-        "workdir": {
-            "help": "Directory with cryoDRGN results",
-            "type": "abspath"
+    "desc": "Visualize latent space and generate volumes",
+    "args": {
+        "positional arguments": {
+            "workdir": {
+                "help": "Directory with cryoDRGN results",
+                "type": "abspath"
+            },
+            "epoch": {
+                "help": "Epoch number N to analyze (0-based indexing, corresponding to z.N.pkl, weights.N.pkl)",
+                "type": "int"
+            }
         },
-        "epoch": {
-            "help": "Epoch number N to analyze (0-based indexing, corresponding to z.N.pkl, weights.N.pkl)",
-            "type": "int"
-        }
-    },
-    "options": {
-        "device": {
-            "help": "Optionally specify CUDA device",
-            "type": "int",
-            "flags": [
-                "--device"
-            ]
+        "optional arguments": {
+            "device": {
+                "help": "Optionally specify CUDA device",
+                "type": "int",
+                "flags": [
+                    "--device"
+                ]
+            },
+            "outdir": {
+                "help": "Output directory for analysis results (default: [workdir]/analyze.[epoch])",
+                "flags": [
+                    "-o",
+                    "--outdir"
+                ]
+            },
+            "skip_vol": {
+                "const": true,
+                "default": false,
+                "help": "Skip generation of volumes",
+                "nargs": 0,
+                "flags": [
+                    "--skip-vol"
+                ]
+            },
+            "skip_umap": {
+                "const": true,
+                "default": false,
+                "help": "Skip running UMAP",
+                "nargs": 0,
+                "flags": [
+                    "--skip-umap"
+                ]
+            }
         },
-        "outdir": {
-            "help": "Output directory for analysis results (default: [workdir]/analyze.[epoch])",
-            "flags": [
-                "-o",
-                "--outdir"
-            ]
-        },
-        "skip_vol": {
-            "const": true,
-            "default": false,
-            "help": "Skip generation of volumes",
-            "nargs": 0,
-            "flags": [
-                "--skip-vol"
-            ]
-        },
-        "skip_umap": {
-            "const": true,
-            "default": false,
-            "help": "Skip running UMAP",
-            "nargs": 0,
-            "flags": [
-                "--skip-umap"
-            ]
-        }
-    },
-    "Extra arguments for volume generation": {
-        "Apix": {
-            "default": 1,
-            "help": "Pixel size to add to .mrc header (default: %(default)s A/pix)",
-            "type": "float",
-            "flags": [
-                "--Apix"
-            ]
-        },
-        "flip": {
-            "const": true,
-            "default": false,
-            "help": "Flip handedness of output volumes",
-            "nargs": 0,
-            "flags": [
-                "--flip"
-            ]
-        },
-        "invert": {
-            "const": true,
-            "default": false,
-            "help": "Invert contrast of output volumes",
-            "nargs": 0,
-            "flags": [
-                "--invert"
-            ]
-        },
-        "downsample": {
-            "help": "Downsample volumes to this box size (pixels)",
-            "type": "int",
-            "flags": [
-                "-d",
-                "--downsample"
-            ]
-        },
-        "pc": {
-            "default": 2,
-            "help": "Number of principal component traversals to generate (default: %(default)s)",
-            "type": "int",
-            "flags": [
-                "--pc"
-            ]
-        },
-        "ksample": {
-            "default": 20,
-            "help": "Number of kmeans samples to generate (default: %(default)s)",
-            "type": "int",
-            "flags": [
-                "--ksample"
-            ]
-        },
-        "vol_start_index": {
-            "default": 0,
-            "help": "Default value of start index for volume generation (default: %(default)s)",
-            "type": "int",
-            "flags": [
-                "--vol-start-index"
-            ]
+        "extra arguments for volume generation": {
+            "Apix": {
+                "default": 1,
+                "help": "Pixel size to add to .mrc header (default: %(default)s A/pix)",
+                "type": "float",
+                "flags": [
+                    "--Apix"
+                ]
+            },
+            "flip": {
+                "const": true,
+                "default": false,
+                "help": "Flip handedness of output volumes",
+                "nargs": 0,
+                "flags": [
+                    "--flip"
+                ]
+            },
+            "invert": {
+                "const": true,
+                "default": false,
+                "help": "Invert contrast of output volumes",
+                "nargs": 0,
+                "flags": [
+                    "--invert"
+                ]
+            },
+            "downsample": {
+                "help": "Downsample volumes to this box size (pixels)",
+                "type": "int",
+                "flags": [
+                    "-d",
+                    "--downsample"
+                ]
+            },
+            "pc": {
+                "default": 2,
+                "help": "Number of principal component traversals to generate (default: %(default)s)",
+                "type": "int",
+                "flags": [
+                    "--pc"
+                ]
+            },
+            "ksample": {
+                "default": 20,
+                "help": "Number of kmeans samples to generate (default: %(default)s)",
+                "type": "int",
+                "flags": [
+                    "--ksample"
+                ]
+            },
+            "vol_start_index": {
+                "default": 0,
+                "help": "Default value of start index for volume generation (default: %(default)s)",
+                "type": "int",
+                "flags": [
+                    "--vol-start-index"
+                ]
+            }
         }
     }
 }

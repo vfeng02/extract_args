@@ -1,6 +1,7 @@
 import os
 
 def add_args(parser): 
+    # parser.description = "Construct z path interpolating between anchor points"
     parser.add_argument("z", help="Input z.pkl embeddings")
     parser.add_argument(
         "--ind",
